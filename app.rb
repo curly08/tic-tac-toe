@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
-require 'pry-byebug'
-
 # Game class
 class Game
-  # binding.pry
-
   attr_reader :player_one_name, :player_two_name, :player_one_mark, :player_two_mark, :board
 
   def initialize(player_one_name, player_two_name)
@@ -29,6 +25,8 @@ class Game
 
     while @game_over == false
       play_move(@player_one_name, @player_one_mark)
+      break if @possible_inputs.empty?
+
       play_move(@player_two_name, @player_two_mark)
     end
   end
