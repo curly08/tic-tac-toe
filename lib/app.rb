@@ -1,34 +1,32 @@
 # frozen_string_literal: true
 
-# Game class
-class Game
-  attr_reader :player_one_name, :player_two_name, :player_one_mark, :player_two_mark, :board
+require_relative '../lib/player'
+require_relative '../lib/board'
 
-  def initialize(player_one_name, player_two_name)
-    @player_one_name = player_one_name
-    @player_two_name = player_two_name
-    @player_one_mark = 'X'
-    @player_two_mark = 'O'
-    @board = [
-      '_', '_', '_', '|', '_', '_', '_', '|', '_', '_', '_', "\n",
-      '_', '_', '_', '|', '_', '_', '_', '|', '_', '_', '_', "\n",
-      ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', "\n"
-    ]
+# Game class
+class TicTacToe
+  attr_reader :player_one, :player_two, :board
+
+  def initialize(first_player_name, second_player_name)
+    @arr = [first_player_name, second_player_name].shuffle!
+    @player_one = Player.new(@arr[0], 'X')
+    @player_two = Player.new(@arr[1], 'O')
+    @board = Board.new
 
     @possible_inputs = {
       'top left': 1, 'top middle': 5, 'top right': 9,
       'middle left': 13, 'middle middle': 17, 'middle right': 21,
       'bottom left': 25, 'bottom middle': 29, 'bottom right': 33
     }
+  end
 
-    @game_over = false
-
-    while @game_over == false
-      play_move(@player_one_name, @player_one_mark)
-      break if @possible_inputs.empty?
-
-      play_move(@player_two_name, @player_two_mark)
+  def play_game
+    puts board.display
+    until game_over? do
+      player_one.turn_count == player_two.turn_count ? player_one.play_move : player_two.play_move
+      puts board.update_display
     end
+    ending_message
   end
 
   # move method
@@ -81,9 +79,15 @@ class Game
     end
   end
 
+  def game_over?
+
+  end
+
+  def ending_message
+
+  end
+
   def show_board
     @board.join
   end
 end
-
-new_game = Game.new('matt', 'bob')
