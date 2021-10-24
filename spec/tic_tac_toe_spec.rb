@@ -124,15 +124,28 @@ describe TicTacToe do
   end
 
   describe '#input_valid?' do
-    context 'input is valid' do
+    context 'input is an unchosen board location' do
       it 'returns true' do
-        
+        result = game.input_valid?('3')
+        expect(result).to be(true)
       end
     end
 
-    context 'input is invalid' do
+    context 'input is a chosen board location' do
+      before do
+        game.chosen_spots = ['3']
+      end
+
       it 'returns false' do
-        
+        result = game.input_valid?('3')
+        expect(result).to be(false)
+      end
+    end
+
+    context 'input is not a number' do
+      it 'returns false' do
+        result = game.input_valid?('d')
+        expect(result).to be(false)
       end
     end
   end
