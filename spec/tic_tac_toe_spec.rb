@@ -2,7 +2,7 @@
 
 # rubocop:disable all
 
-require_relative '../lib/app'
+require_relative '../lib/tictactoe'
 require_relative '../lib/player'
 
 describe Player do
