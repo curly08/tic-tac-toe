@@ -2,12 +2,21 @@
 
 # player with name and mark attributes
 class Player
-  def initialize(name)
+  attr_accessor :marked_locations
+  attr_reader :name, :mark, :turn_count
+
+  def initialize(name, mark)
     @name = name
-    @mark = nil
+    @mark = mark
+    @turn_count = 0
+    @marked_locations = []
   end
 
-  def set_mark(value)
-    @mark = value
+  def increase_turn_count
+    @turn_count += 1
+  end
+
+  def update_mark_history(input)
+    marked_locations << input
   end
 end
